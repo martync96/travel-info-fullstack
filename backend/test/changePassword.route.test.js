@@ -8,16 +8,16 @@ import testUsers from './data/testUser.js';
 
 const { request } = chai.use(chaiHttp);
 
-describe('Integration Tests on requests to /login route', () => {
+describe(`Integration Tests on requests to /changePassword route`, () => {
 
-    const testRouteBase = "/login";
+    const testRouteBase = "/changePassword";
 
     const testLogin = {
-        "email": "testuser1@gmail.com", "password": 'password123'
+        "email": "testuser1@gmail.com", "password": 'password123', "newPassword": "newPassword1234"
     }
 
     const testLoginBad = {
-       "email": "teastemail1@gmail.com", "password": 'testPassword1'
+       "email": "teastemail1@gmail.com", "password": 'testPassword1', "newPassword": "newPassword123"
     }
 
     beforeEach(async () => {
@@ -36,19 +36,13 @@ describe('Integration Tests on requests to /login route', () => {
     });
 
     describe("/POST requests", () => {
-        it("should return 400 bad request if details don't match those in the DB", async () => {
+        
+        it(`should return 400 bad request if the supplied password doesn't match that in the database`, async() => {
 
             const res = (await request(server).post(testRouteBase).send(testLoginBad));
-
             expect(res).to.have.status(400);
         });
 
-        it("should return user object if details match those in the DB", async () => {
-
-            const res = (await request(server).post(testRouteBase).send(testLogin));
-            
-            expect(res).to.have.status(200);
-            expect(res.body).to.have.property('user');
-        });
+        
     });
 });

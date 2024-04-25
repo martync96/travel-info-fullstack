@@ -5,6 +5,8 @@ const login = async ({email, password}) => {
 
     const user = await User.findOne({ email }); //check if email supplied is in the database
     
+    console.log(user);
+
     if (user && (await passwordHashService.comparePassword(password, user.password))){ //if user is found and user.password is equal to hashed password supplied, return the user
         return user;
     }

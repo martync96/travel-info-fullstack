@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { config } from 'dotenv';
 import cors from 'cors';
 import { login } from './routes/login.route.js';
+import { changePassword } from './routes/changePassword.route.js';
 
 config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -23,6 +24,7 @@ main().catch(err => console.log(err));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(`/login`, login);
+app.use(`/changePassword`, changePassword);
 
 const server = app.listen(port, host, () => {
     const SERVERHOST = server.address().address;

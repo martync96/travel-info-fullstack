@@ -3,7 +3,6 @@ import sinon from "sinon";
 
 import { loginController } from "../controllers/login.controller.js";
 import { loginService } from "../services/login.service.js";
-import { get } from "mongoose";
 
 describe("login controller tests", () => {
 
@@ -13,7 +12,7 @@ describe("login controller tests", () => {
         req = {}
         res = {
             json: () => {},
-            status: function() { return this; }, // Add this line
+            status: function() { return this; }, 
             send: function() { return this; },
         };
 
