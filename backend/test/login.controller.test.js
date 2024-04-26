@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import sinon from "sinon";
-
 import { loginController } from "../controllers/login.controller.js";
 import { loginService } from "../services/login.service.js";
 

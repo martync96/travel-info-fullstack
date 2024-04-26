@@ -1,4 +1,3 @@
-import { loginService } from "../services/login.service.js";
 import { passwordHashService } from "../services/passwordHash.service.js";
 import { expect } from 'chai';
 import User from '../models/user.model.js';

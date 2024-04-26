@@ -43,6 +43,10 @@ describe(`Integration Tests on requests to /changePassword route`, () => {
             expect(res).to.have.status(400);
         });
 
-        
+        it(`should return 200 request if the password is changed successfully`, async() => {
+                
+                const res = (await request(server).post(testRouteBase).send(testLogin));
+                expect(res).to.have.status(200);
+        });
     });
 });
