@@ -10,6 +10,7 @@ const LoginDropdown = (props) => {
     const [submit, setSubmit] = useState(false); //state for submit button, used to call login api when true
 
     const formRef = useRef(); //reference to the login form
+    const navigate = useNavigate(); //navigate to change password page
 
     const handleEmail = (e) => { setEmail(e.target.value) }; //updates email as input field is changed
     const handlePassword = (e) => { setPassword(e.target.value) }; //updates password as input field is changed
@@ -25,7 +26,9 @@ const LoginDropdown = (props) => {
     const handleDropdown = (e) => {
         e.stopPropagation(); //stops click event from triggering
         setLoginDropdown(!loginDropdown) //toggles loginDropdown state
-    } 
+    }
+
+    const navigateChangePassword = () => { navigate('/change-password') } //navigates to change password page
 
     useEffect(() => {
         const handleClick = (e) => {
@@ -75,7 +78,7 @@ const LoginDropdown = (props) => {
                             <input type="password" className="form-control" id="exampleInputPassword1" onChange={handlePassword} />
                         </div>
                         <div className="mb-3">
-                            <small id="emailHelp" className="form-text text-muted" >Forgotten Your Password?</small>
+                            <small id="emailHelp" className="form-text text-muted" onClick={navigateChangePassword}>Forgotten Your Password?</small>
                         </div>
                         <div className="mb-3">
                             <button type="submit" className="btn btn-primary" data-testid="submit-form" onClick={handleSubmit}>Submit</button>

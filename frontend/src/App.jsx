@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import ChangePasswordPage from './pages/ChangePasswordPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import NavBar from './components/NavBar.jsx';
 
@@ -18,6 +19,7 @@ function App() {
       <NavBar signedIn={signedIn} setSignedIn={setSignedIn}/>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/change-password" element={<ChangePasswordPage />} />
       </Routes>
     </div>
   )
