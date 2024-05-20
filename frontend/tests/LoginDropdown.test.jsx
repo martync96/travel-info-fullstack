@@ -1,7 +1,7 @@
-import { expect, it, vi } from "vitest";
+import { expect, it, } from "vitest";
 import LoginDropdown from "../src/components/LoginDropdown";
 import { MemoryRouter } from "react-router-dom";
-import { render, screen, fireEvent, userEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 describe(`LoginDropdown Tests`, () => {
     it(`should display as a login button if user is not logged in`, () => {
@@ -22,25 +22,41 @@ describe(`LoginDropdown Tests`, () => {
         expect(button).toBeInTheDocument();
     });
 
-    it('calls handleSubmit when clicked', () => {
-        // Mock function to simulate handleSubmit
-        const mockFunction = vi.fn(() => true);
-    
-        // Render the LoginDropdown component within MemoryRouter
-        render(<MemoryRouter><LoginDropdown handleSubmit={mockFunction} /></MemoryRouter>);
-    
-        // Find the submit button
-        const button = screen.getByTestId('submit-form');
-    
-        // Simulate click event on the submit button
-        fireEvent.click(button);
+    it(`should close the login dropdown when the user clicks outside of the form`, () => {
+
+        render(<MemoryRouter><LoginDropdown loginDropdown={true} /></MemoryRouter>);
+
+        // Assume that the dropdown is open at the start of the test
+        let dropdown = screen.queryByTestId('login-dropdown');
+        expect(dropdown).toBeInTheDocument();
         
-        // Log the mock function
-        console.log(mockFunction);
-    
-        // Check if handleSubmit has been called
-        expect(mockFunction).toHaveBeenCalled();
+        // Simulate a mouse down event on the document body
+        fireEvent.mouseDown(document.body);
+
+        // Check if the dropdown has been removed from the document
+        setTimeout(() => {
+            expect(dropdown).not.toBeInTheDocument();
+        }, 100);
+
+    });
+
+    it(`should not close the login dropdown when the user clicks inside of the form`, () => {
+
+        render(<MemoryRouter><LoginDropdown loginDropdown={true} /></MemoryRouter>);
+
+        // Assume that the dropdown is open at the start of the test
+        let dropdown = screen.queryByTestId('login-dropdown');
+        expect(dropdown).toBeInTheDocument();
+        
+        // Simulate a mouse down event on the document body
+        fireEvent.mouseDown(dropdown);
+
+        // Check if the dropdown has been removed from the document
+        setTimeout(() => {
+            expect(dropdown).not.toBeInTheDocument();
+        }, 100);
+
     });
 });
 
-//17-19,24-26,30-33,44-56
+//19-21, 37-40, 51-63

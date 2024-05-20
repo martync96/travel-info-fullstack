@@ -7,14 +7,16 @@ const changePassword = async ({ email, password, newPassword }) => {
     const authenticatedUser = await loginService.login({ email, password });
 
     if (authenticatedUser) {
-        const user = await User.findOne({ email: authenticatedUser.email });
+        try{
+            const user = await User.findOne({ email: authenticatedUser.email });
         const hashedPassword = await passwordHashService.hashPassword(newPassword);
         user.set('password', hashedPassword);
         await user.save();
         return user;
+        } catch (error) {
+            throw new Error(`Something went wrong`);
+        }
     }
-
-    throw new Error(`Incorrect Credentials`);
 };
 
 export const changePasswordService = {

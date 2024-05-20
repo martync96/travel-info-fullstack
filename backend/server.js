@@ -6,6 +6,8 @@ import { config } from 'dotenv';
 import cors from 'cors';
 import { login } from './routes/login.route.js';
 import { changePassword } from './routes/changePassword.route.js';
+import { registerUser } from './routes/registerUser.route.js';
+import { addFavouriteLocation } from './routes/addFavouriteLocation.route.js';
 
 config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -25,6 +27,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(`/login`, login);
 app.use(`/changePassword`, changePassword);
+app.use(`/register`, registerUser);
+app.use(`/addFavouriteLocation`, addFavouriteLocation);
 
 const server = app.listen(port, host, () => {
     const SERVERHOST = server.address().address;

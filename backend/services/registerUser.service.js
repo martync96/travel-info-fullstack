@@ -1,5 +1,5 @@
-import User from "../models/user.model";
-import { passwordHashService } from "./passwordHash.service";
+import User from "../models/user.model.js";
+import { passwordHashService } from "./passwordHash.service.js";
 
 const registerUser = async ({ email, password }) => {
 

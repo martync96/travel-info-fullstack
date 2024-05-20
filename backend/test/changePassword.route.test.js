@@ -12,9 +12,7 @@ describe(`Integration Tests on requests to /changePassword route`, () => {
 
     const testRouteBase = "/changePassword";
 
-    const testLogin = {
-        "email": "testuser1@gmail.com", "password": 'password123', "newPassword": "newPassword1234"
-    }
+    const testLogin = { "email": "testuser1@gmail.com", "password": 'password123', "newPassword": "newPassword1234" }
 
     const testLoginBad = {
        "email": "teastemail1@gmail.com", "password": 'testPassword1', "newPassword": "newPassword123"

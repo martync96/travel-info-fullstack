@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import ChangePasswordPage from './pages/ChangePasswordPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import NavBar from './components/NavBar.jsx';
+import RegisterUserPage from './pages/RegisterUserPage.jsx';
+import WeatherPage from './pages/WeatherPage.jsx';
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
+        <Route path="/register" element={<RegisterUserPage />} />
+        <Route path="/weather/:location" element={<WeatherPage />} />
       </Routes>
     </div>
   )
