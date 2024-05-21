@@ -26,8 +26,6 @@ const SearchBox = ({className}) => {
         setUserInput(trimmedInput.length > 0); 
     }; //updates search state as input field is changed
 
-    console.log(search)
-
     const searchForLocation = async (e) => {
         e.preventDefault(); //prevents page re-rendering on submit  
         try{

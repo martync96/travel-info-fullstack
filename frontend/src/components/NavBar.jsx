@@ -24,7 +24,7 @@ const NavBar = (props) => {
                         </ul>
                     </div>
                     <div className="col-3 d-flex justify-content-center align-items-center">
-                    <LoginDropdown signedIn={props.signedIn} setSignedIn={props.setSignedIn}/>
+                    <LoginDropdown signedIn={props.signedIn} setSignedIn={props.setSignedIn} favouriteLocations={props.favouriteLocations} setFavouriteLocations={props.setFavouriteLocations}/>
                     </div>
                     <div className="col-3 d-flex justify-content-center align-items-center">
                     </div>

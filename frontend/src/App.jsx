@@ -9,6 +9,7 @@ import WeatherPage from './pages/WeatherPage.jsx';
 function App() {
 
   const [signedIn, setSignedIn] = useState(false);
+  const [favouriteLocations, setFavouriteLocations] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -16,17 +17,23 @@ function App() {
     }
   }, []); //on page load, check if a token is stored in localStorage, if so, set signedIn to true
 
+  useEffect(() => {
+    if (localStorage.getItem('favouriteLocations')) {
+      setFavouriteLocations(JSON.parse(localStorage.getItem('favouriteLocations')));
+    }
+  }, []); //on page load, check if a token is stored in localStorage, if so, set signedIn to true
+
   return (
     <div>
-      <NavBar signedIn={signedIn} setSignedIn={setSignedIn}/>
+      <NavBar signedIn={signedIn} setSignedIn={setSignedIn} favouriteLocations={favouriteLocations} setFavouriteLocations={setFavouriteLocations}/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/register" element={<RegisterUserPage />} />
-        <Route path="/weather/:location" element={<WeatherPage />} />
+        <Route path="/weather/:location" element={<WeatherPage favouriteLocations={favouriteLocations} setFavouriteLocations={setFavouriteLocations}/>} />
       </Routes>
     </div>
   )
 }
 
-export default App
+export default App;

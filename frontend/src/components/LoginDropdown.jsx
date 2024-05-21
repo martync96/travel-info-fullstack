@@ -12,8 +12,6 @@ const LoginDropdown = (props) => {
     const [password, setPassword] = useState(''); //state for password input
     const [submit, setSubmit] = useState(false); //state for submit button, used to call login api when true
     const [validForm, setValidForm] = useState(false); //state for valid form, set to true by default
-    const [validEmail, setValidEmail] = useState(false); //state for valid email, set to false by default
-    const [validPassword, setValidPassword] = useState(false); //state for valid password, set to false by default
     const [error, setError] = useState(""); //state for error message
     const [show, setShow] = useState(false); //state for showing/hiding modal
 
@@ -23,7 +21,6 @@ const LoginDropdown = (props) => {
     const handleEmail = (e) => { setEmail(e.target.value); setValidForm(e.target.value.length > 0 && password.length > 0); }; //updates email as input field is changed
     const handlePassword = (e) => { setPassword(e.target.value.trim()); setValidForm(e.target.value.length > 0 && email.length > 0); }; //updates password as input field is changed
 
-    console.log(password)
     //modal handlers
     const handleClose = () => setShow(false); //function to close modal
     const handleShow = () => setShow(true); //function to show modal
@@ -31,7 +28,7 @@ const LoginDropdown = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault(); //prevents page re-rendering on submit
         e.stopPropagation(); //prevents event bubbling
-        if (validateEmail(email)) {
+        if (EmailValidator(email)) {
             setSubmit(true);
         }
     }; //sets submit to true when submit button is clicked
@@ -49,9 +46,7 @@ const LoginDropdown = (props) => {
                 setLoginDropdown(false);
             }
         }
-
         document.addEventListener('click', handleClick);
-
         return () => {
             document.removeEventListener('click', handleClick);
         };
@@ -68,7 +63,9 @@ const LoginDropdown = (props) => {
                     if (response.status === 200) { //if login is successful
                         localStorage.setItem('token', response.data.token); //save token in local storage
                         localStorage.setItem('email', email); //save email in local storage
+                        localStorage.setItem('favouriteLocations', JSON.stringify(response.data.user.favouriteLocations)); //save favourite locations in local storage
                         props.setSignedIn(true); //set signedIn to true
+                        props.setFavouriteLocations(response.data.user.favouriteLocations); //set favourite locations
                     }
                 }).catch(error => { console.log('Error:', error.message) }); //log error if login is unsuccessful, change to report back to front end
             setSubmit(false); //reset submit to false
