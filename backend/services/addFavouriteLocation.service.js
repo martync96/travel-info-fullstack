@@ -1,15 +1,15 @@
 import User from "../models/user.model.js";
 
 const addFavouriteLocation = async ({ email, location }) => {
-    try{
-        
-        let user = await User.findOne( { email });
-        if(user){
+    try {
+        let user = await User.findOne({ email });
+        if (user) {
             await user.updateOne({ $push: { favouriteLocations: location } });
+        } else {
+            throw new Error('User not found');
         }
-
-    } catch (error){
-        return error;
+    } catch (error) {
+        throw error; // Throwing the error so it can be caught by the controller
     }
 };
 
