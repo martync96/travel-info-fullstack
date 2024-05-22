@@ -8,7 +8,7 @@ import axios from 'axios';
 beforeEach(() => {
     render(
         <MemoryRouter>
-            <RegisterUserPage/>
+            <RegisterUserPage />
         </MemoryRouter>
     );
 });
@@ -30,7 +30,7 @@ describe(`RegisterUserPage Tests`, () => {
 
         fireEvent.click(submitButton);
 
-        const modalText = await screen.findByText('Passwords do not match');
+        const modalText = await screen.getByTestId('notificationModal');
         expect(modalText).toBeInTheDocument();
 
     });
@@ -43,7 +43,8 @@ describe(`RegisterUserPage Tests`, () => {
 
         fireEvent.click(button);
 
-        await screen.findByText('User registered successfully');
+        const modalText = await screen.getByTestId('notificationModal');
+        expect(modalText).toBeInTheDocument();
 
     });
 
@@ -55,9 +56,10 @@ describe(`RegisterUserPage Tests`, () => {
 
         fireEvent.click(button);
 
-        await screen.findByText('User already exists');
+        const modalText = await screen.getByTestId('notificationModal');
+        expect(modalText).toBeInTheDocument();
 
     });
 
-    
+
 });

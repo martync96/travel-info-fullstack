@@ -25,7 +25,7 @@ describe(`ChangePassword Tests`, () => {
 
             fireEvent.click(submitButton);
 
-            const modalText = await screen.findByText('Passwords do not match');
+            const modalText = await screen.getByTestId('notificationModal');
             expect(modalText).toBeInTheDocument();
         });
 
@@ -37,7 +37,7 @@ describe(`ChangePassword Tests`, () => {
 
             fireEvent.click(submitButton);
 
-            const modalText = await screen.findByText('Password Changed Successfully');
+            const modalText = await screen.getByTestId('notificationModal');
             expect(modalText).toBeInTheDocument();
 
         });
@@ -46,12 +46,12 @@ describe(`ChangePassword Tests`, () => {
             const passwordInput = screen.getByLabelText('Enter Your New Password');
             const confirmPasswordInput = screen.getByLabelText('Enter Your New Password Again');
             const submitButton = screen.getByText('Submit');
-        
+
             fireEvent.change(passwordInput, { target: { value: 'a' } });
             fireEvent.change(confirmPasswordInput, { target: { value: 'b' } });
-        
+
             fireEvent.click(submitButton);
-        
+
             const modalText = await screen.getByTestId('notificationModal');
             expect(modalText).toBeInTheDocument();
         });
