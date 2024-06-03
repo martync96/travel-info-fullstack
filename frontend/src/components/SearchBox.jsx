@@ -36,15 +36,14 @@ const SearchBox = ({className}) => {
         } catch (e) {
             handleModal(e.message);
         }
-
     } //searches for location when search button is clicked
 
     return (
         <>
-            <form className={`${className} `} onSubmit={searchForLocation}>
+            <form className={`${className} `}>
                 <div className="search-container">
-                    <input className="form-control mr-sm-2 mb-2 search-box" type="search" placeholder="Search" aria-label="Search" onChange={setSearchItem} />
-                    <button className="btn btn-dark my-2 my-sm-0" type="submit" data-testid="searchButton" disabled={userInput ? false : true}>Search</button>
+                    <input className="form-control mr-sm-2 mb-2 search-box" type="search" placeholder="Search" aria-label="Search" onChange={setSearchItem} data-testid="searchBox"/>
+                    <button className="btn btn-dark my-2 my-sm-0" type="submit" data-testid="searchButton" disabled={userInput ? false : true} onClick={searchForLocation}>Search</button>
                 </div>
             </form>
             <NotificationModal show={show} handleClose={handleClose} error={error} />
