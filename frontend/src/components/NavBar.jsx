@@ -1,7 +1,7 @@
 import LoginDropdown from './LoginDropdown.jsx'
+import SavedLocationsDropdown from './SavedLocationsDropdown.jsx';
 
 const NavBar = (props) => {
-
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -21,10 +21,11 @@ const NavBar = (props) => {
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <div className="col-3 d-flex justify-content-center align-items-center">
                         <ul className="navbar-nav">
+                            <SavedLocationsDropdown favouriteLocations={props.favouriteLocations} />
                         </ul>
                     </div>
                     <div className="col-3 d-flex justify-content-center align-items-center">
-                    <LoginDropdown signedIn={props.signedIn} setSignedIn={props.setSignedIn} favouriteLocations={props.favouriteLocations} setFavouriteLocations={props.setFavouriteLocations}/>
+                        <LoginDropdown signedIn={props.signedIn} setSignedIn={props.setSignedIn} favouriteLocations={props.favouriteLocations} setFavouriteLocations={props.setFavouriteLocations} />
                     </div>
                     <div className="col-3 d-flex justify-content-center align-items-center">
                     </div>

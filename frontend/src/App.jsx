@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage.jsx';
 import NavBar from './components/NavBar.jsx';
 import RegisterUserPage from './pages/RegisterUserPage.jsx';
 import WeatherPage from './pages/WeatherPage.jsx';
+import FavouriteLocations from './pages/FavouriteLocations.jsx';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
   }, []); //on page load, check if a token is stored in localStorage, if so, set signedIn to true
 
   useEffect(() => {
-    if (localStorage.getItem('favouriteLocations')) {
+    if (localStorage.getItem('favouriteLocations') != undefined) {
       setFavouriteLocations(JSON.parse(localStorage.getItem('favouriteLocations')));
     }
   }, []); //on page load, check if a token is stored in localStorage, if so, set signedIn to true
@@ -31,6 +32,7 @@ function App() {
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/register" element={<RegisterUserPage />} />
         <Route path="/weather/:location" element={<WeatherPage favouriteLocations={favouriteLocations} setFavouriteLocations={setFavouriteLocations}/>} />
+        <Route path="/favourite-locations" element={<FavouriteLocations favouriteLocations={favouriteLocations} setFavouriteLocations={setFavouriteLocations} />} />
       </Routes>
     </div>
   )
