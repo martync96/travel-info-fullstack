@@ -20,8 +20,6 @@ const SavedLocationsDropdown = (props) => {
         </a>
     );
 
-    console.log(props.favouriteLocations)
-
     return(
         <>
         <li className={`nav-item dropdown ${props.favouriteLocations.length != 0 ? '' : 'favourites-dropdown-hidden'}`} data-testid='fav-dropdown'>

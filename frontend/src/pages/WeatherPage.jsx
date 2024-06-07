@@ -26,6 +26,10 @@ const WeatherPage = (props) => {
     }
 
     useEffect(() => {
+        checkDuplicate(city, props.favouriteLocations);
+    }, [city, props.favouriteLocations]);
+
+    useEffect(() => {
         axios.get(`http://api.openweathermap.org//data/2.5/forecast?q=${location}&appid=9ab396b1eeb18a2d3e5aaf280537e941`)
             .then((response) => {
                 handleWeatherInformation(response);
@@ -46,7 +50,8 @@ const WeatherPage = (props) => {
                     'x-access-token': localStorage.getItem('token')
                 }
             }).then((response) => {
-                localStorage.setItem('favouriteLocations', JSON.stringify(response.data.favouriteLocations));
+                console.log(response.data.favouriteLocations);
+                // localStorage.setItem('favouriteLocations', JSON.stringify(response.data.favouriteLocations));
                 props.setFavouriteLocations(response.data.favouriteLocations);
                 setFavourited(true);
             })
@@ -69,12 +74,12 @@ const WeatherPage = (props) => {
                             <h2>{city || 'Loading'}</h2>
                             {favourited ? (
                                 <>
-                                    <img src={favouritedIcon} onClick={removeFromFavourites}/>
+                                    <img src={favouritedIcon} onClick={removeFromFavourites} data-testid="unfavourite"/>
                                     <p>Click to remove from favourites</p>
                                 </>
                             ) : (
                                 <>
-                                    <img src={unfavouriteIcon} onClick={addToFavourites}/>
+                                    <img src={unfavouriteIcon} onClick={addToFavourites} data-testid="favourite"/>
                                     <p>Click to add to favourites</p>
                                 </>
                             )}

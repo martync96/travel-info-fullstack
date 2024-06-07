@@ -2,15 +2,13 @@ import ForecastBox from "./ForecastBox.jsx";
 
 const WeatherForecast = ({ forecast }) => {
 
-    console.log(forecast);
-
-    const header = forecast.list.map((data, index) => {
-        <div key={index} >
-            <h2>Today's Weather</h2>
-            <p>{data.dt_txt.split(' ')[0].split('-').reverse().join('-')}</p> {/* date format is yyyy-mm-dd, so reverse it to dd-mm-yyyy */}
-            <p>{Math.round(data.main.temp - 273.15)}°c, {data.weather[0].main}</p> {/* convert kelvin to celsius */}
-        </div>
-    })
+    // const header = forecast.list.map((data, index) => {
+    //     <div key={index} >
+    //         <h2>Today's Weather</h2>
+    //         <p>{data.dt_txt.split(' ')[0].split('-').reverse().join('-')}</p> {/* date format is yyyy-mm-dd, so reverse it to dd-mm-yyyy */}
+    //         <p>{Math.round(data.main.temp - 273.15)}°c, {data.weather[0].main}</p> {/* convert kelvin to celsius */}
+    //     </div>
+    // })
 
     const forecastBoxes = forecast.list.map((data, index) => {
         if (index % 8 === 0 && index > 0) {
@@ -30,7 +28,6 @@ const WeatherForecast = ({ forecast }) => {
 
     return (
         <>
-            {header}
             <div className="row">
                 {forecastBoxes}
             </div>

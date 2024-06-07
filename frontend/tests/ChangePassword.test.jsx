@@ -1,7 +1,7 @@
 import ChangePasswordPage from "../src/pages/ChangePasswordPage.jsx";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import axios from 'axios';
 
 const mockSubmitDetails = vi.fn();

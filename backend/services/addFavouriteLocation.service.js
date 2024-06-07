@@ -5,6 +5,7 @@ const addFavouriteLocation = async ({ email, location }) => {
         let user = await User.findOne({ email });
         if (user) {
             await user.updateOne({ $push: { favouriteLocations: location } });
+            return user.favouriteLocations;
         } else {
             throw new Error('User not found');
         }
