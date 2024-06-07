@@ -51,7 +51,7 @@ const WeatherPage = (props) => {
                 }
             }).then((response) => {
                 console.log(response.data.favouriteLocations);
-                // localStorage.setItem('favouriteLocations', JSON.stringify(response.data.favouriteLocations));
+                localStorage.setItem('favouriteLocations', JSON.stringify(response.data.favouriteLocations));
                 props.setFavouriteLocations(response.data.favouriteLocations);
                 setFavourited(true);
             })
