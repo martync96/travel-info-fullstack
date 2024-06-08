@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import WeatherForecast from '../components/WeatherForecast.jsx';
+import NotificationModal from '../components/NotificationModal.jsx';
 import axios from 'axios';
 import favouritedIcon from "/assets/favourited.png";
 import unfavouriteIcon from "/assets/unfavourited.png";
@@ -12,6 +13,16 @@ const WeatherPage = (props) => {
     const [city, setCity] = useState('');
     const [weatherData, setWeatherData] = useState({});
     const [favourited, setFavourited] = useState(false);
+    //modal states
+    const [show, setShow] = useState(false); //state to show/hide modal
+    const [error, setError] = useState(""); //state to pass error message to the modal 
+    const handleClose = () => setShow(false); //function to close modal
+    const handleShow = () => setShow(true); //function to show modal
+
+    const handleModal = (error) => {
+        setError(error);
+        handleShow();   
+    }
 
     const handleWeatherInformation = (response) => {
         setCity(response.data.city.name);
@@ -34,7 +45,7 @@ const WeatherPage = (props) => {
             .then((response) => {
                 handleWeatherInformation(response);
             }).catch((error) => {
-                console.log('Error:', error.message);
+                handleModal(error.message);
             });
     }, [location]);
 
@@ -50,13 +61,12 @@ const WeatherPage = (props) => {
                     'x-access-token': localStorage.getItem('token')
                 }
             }).then((response) => {
-                console.log(response.data.favouriteLocations);
                 localStorage.setItem('favouriteLocations', JSON.stringify(response.data.favouriteLocations));
                 props.setFavouriteLocations(response.data.favouriteLocations);
                 setFavourited(true);
             })
         }catch(error){
-
+            handleModal(error.message);
         }
     };
 
@@ -87,6 +97,7 @@ const WeatherPage = (props) => {
                         {Object.keys(weatherData).length > 0 ? <WeatherForecast forecast={weatherData} /> : <p>Loading...</p>}
                     </div>
                     <div className="col-2">
+                    <NotificationModal show={show} handleClose={handleClose} error={error} />
                     </div>
                 </div>
             </div>
