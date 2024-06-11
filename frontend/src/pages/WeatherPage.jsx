@@ -10,6 +10,7 @@ const WeatherPage = (props) => {
 
 
     const { location } = useParams();
+    const [locationID, setLocationID] = useState(''); //state to store the location ID of the city
     const [city, setCity] = useState('');
     const [weatherData, setWeatherData] = useState({});
     const [favourited, setFavourited] = useState(false);
@@ -33,8 +34,14 @@ const WeatherPage = (props) => {
     const checkDuplicate = (city, favouriteLocations) => {
         if (favouriteLocations.some(location => location.city === city)) {
             setFavourited(true);
+            getLocationID(city, favouriteLocations); //if the city is already in the favourites, get the location ID
         }
     }
+
+    const getLocationID = (city, favouriteLocations) => {
+        const location = favouriteLocations.find(location => location.city === city);
+        setLocationID(location._id);
+    };
 
     useEffect(() => {
         checkDuplicate(city, props.favouriteLocations);
@@ -70,7 +77,31 @@ const WeatherPage = (props) => {
         }
     };
 
-    const removeFromFavourites = () => {};
+    const removeFromFavourites = async () => {
+        const removeLocationData = {
+            email: localStorage.getItem('email'),
+            locationID: locationID
+        };
+        try{
+            axios.delete(`http://localhost:4000/remove`, {
+                data: removeLocationData,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': localStorage.getItem('token')
+                }
+            }).then((response) => {
+                if(response.status === 200) {
+                    const updatedFavouriteLocations = response.data.user.favouriteLocations;
+                    localStorage.setItem('favouriteLocations', JSON.stringify(updatedFavouriteLocations));
+                    props.setFavouriteLocations(updatedFavouriteLocations);
+                    setFavourited(false);
+                    handleModal("Location successfully removed from favourites");
+                }
+            });
+        }catch(error){
+            handleModal(error.message);
+        }
+    };
 
     return (
         <>
