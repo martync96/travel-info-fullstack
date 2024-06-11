@@ -8,6 +8,7 @@ import { login } from './routes/login.route.js';
 import { changePassword } from './routes/changePassword.route.js';
 import { registerUser } from './routes/registerUser.route.js';
 import { addFavouriteLocation } from './routes/addFavouriteLocation.route.js';
+import { removeFavouriteLocation } from './routes/removeFavouriteLocation.route.js';
 
 config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -29,6 +30,7 @@ app.use(`/login`, login);
 app.use(`/changePassword`, changePassword);
 app.use(`/register`, registerUser);
 app.use(`/addFavouriteLocation`, addFavouriteLocation);
+app.use(`/remove`, removeFavouriteLocation);
 
 const server = app.listen(port, host, () => {
     const SERVERHOST = server.address().address;
