@@ -1,7 +1,9 @@
 import favouritedIcon from "/assets/favourited.png";
 import FavouriteLocation from "../components/FavouriteLocation";
+import { useState } from "react";
 
 const FavouriteLocations = (props) => {
+
     return(
         <div className="container-fluid">
             <div className="row">
@@ -13,7 +15,7 @@ const FavouriteLocations = (props) => {
                         <h1>Favourite Locations</h1>
                     </div>
                     <div className="favouriteInfo">
-                        <p>Click <img src={favouritedIcon}/> to remove from favourites</p>
+                        <p>Click to remove from favourites</p>
                         <p>Click for more information</p>
                     </div>
                     <FavouriteLocation favouriteLocations={props.favouriteLocations} 

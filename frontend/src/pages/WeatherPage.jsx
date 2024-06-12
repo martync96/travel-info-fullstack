@@ -97,6 +97,8 @@ const WeatherPage = (props) => {
                     setFavourited(false);
                     handleModal("Location successfully removed from favourites");
                 }
+            }).catch((error) => {
+                setError(error.message);
             });
         }catch(error){
             handleModal(error.message);

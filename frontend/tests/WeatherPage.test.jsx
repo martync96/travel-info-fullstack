@@ -1,6 +1,6 @@
 import WeatherPage from "../src/pages/WeatherPage";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor} from '@testing-library/react';
 import favouriteLocationsMock from "./mockData/favouriteLocations.json";
 import weatherResponse from './mockData/weatherResponse.json';
 import weatherResponseTokyo from './mockData/weatherResponseTokyo.json';
@@ -110,5 +110,94 @@ describe(`WeatherPage tests`, () => {
     
         // Check if the unfavourite button is in the document
         expect(unfavouriteIcon).toBeInTheDocument();
+    });
+
+    it(`should re-render the favourite icon when the location is removed from the favourites`, async () => {
+        axios.get.mockResolvedValue({ data: weatherResponse, status: 200 });
+    
+        // Mock the DELETE request
+        axios.delete.mockResolvedValue({ 
+            data: { 
+                message: "Location removed from favourites",
+                user: {
+                    favouriteLocations: favouriteLocationsMock 
+                }
+            }, 
+            status: 200 
+        });
+    
+        render(
+            <MemoryRouter initialEntries={['/weather/madrid']}>
+                <Routes>
+                    <Route path="/weather/:city" element={<WeatherPage favouriteLocations={favouriteLocationsMock} setFavouriteLocations={() => { }} />} />
+                </Routes>
+            </MemoryRouter>
+        );
+    
+        const unfavouriteIcon = await screen.findByTestId('unfavourite');
+
+        fireEvent.click(unfavouriteIcon);
+    
+        const favouriteIcon = await screen.findByTestId('favourite');
+    
+        expect(favouriteIcon).toBeInTheDocument();
+    });
+
+    it(`should render a modal with an error message when an error occurs`, async () => {
+        axios.get.mockResolvedValue({ data: weatherResponse, status: 200 });
+    
+        // Mock the DELETE request
+        axios.delete.mockImplementationOnce(() => Promise.reject(new Error('Error removing location from favourites')));
+    
+        render(
+            <MemoryRouter initialEntries={['/weather/madrid']}>
+                <Routes>
+                    <Route path="/weather/:city" element={<WeatherPage favouriteLocations={favouriteLocationsMock} setFavouriteLocations={() => { }} />} />
+                </Routes>
+            </MemoryRouter>
+        );
+    
+        let unfavouriteIcon;
+        await waitFor(() => {
+            unfavouriteIcon = screen.getByTestId('unfavourite');
+            expect(unfavouriteIcon).toBeInTheDocument();
+        });
+    
+        fireEvent.click(unfavouriteIcon);
+    
+        const modal = await screen.findByTestId('notificationModal');
+    
+        expect(modal).toBeInTheDocument();
+    });
+
+    it(`should render a modal with a Location successfully removed from favourites message when successful`, async () => {
+        axios.get.mockResolvedValue({ data: weatherResponse, status: 200 });
+    
+        // Mock the DELETE request
+        axios.delete.mockResolvedValue({ 
+            data: { 
+                message: "Location removed from favourites",
+                user: {
+                    favouriteLocations: favouriteLocationsMock 
+                }
+            }, 
+            status: 200 
+        });
+    
+        render(
+            <MemoryRouter initialEntries={['/weather/madrid']}>
+                <Routes>
+                    <Route path="/weather/:city" element={<WeatherPage favouriteLocations={favouriteLocationsMock} setFavouriteLocations={() => { }} />} />
+                </Routes>
+            </MemoryRouter>
+        );
+    
+        const unfavouriteIcon = await screen.findByTestId('unfavourite');
+    
+        fireEvent.click(unfavouriteIcon);
+    
+        const modal = await screen.findByTestId('notificationModal');
+    
+        expect(modal).toBeInTheDocument();
     });
 });
