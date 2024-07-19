@@ -63,6 +63,17 @@
     text-align: center !important;
 }
 
+.login-dropdown{
+    margin-left: -150px !important;
+    width: auto !important;  
+    min-width: 300px !important;
+    text-align: center !important;
+}
+
+.hover-underline:hover {
+    text-decoration: underline;
+}
+
 .dropdown-item{
     width: 100%;
     text-align: center;

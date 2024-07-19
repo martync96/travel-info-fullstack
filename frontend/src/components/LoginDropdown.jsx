@@ -78,7 +78,7 @@ const LoginDropdown = (props) => {
                 <button type="button" className={`btn sign-in-button btn-danger dropdown-toggle ${loginDropdown ? 'hide-element' : ` `}`} data-bs-toggle="dropdown" aria-expanded="false" onClick={handleClick}>
                     {props.signedIn ? 'Logout' : 'Sign In'}
                 </button>
-                <ul className={`dropdown-menu ${loginDropdown ? 'show' : ''}`} data-testid="login-dropdown">
+                <ul className={`dropdown-menu ${loginDropdown ? 'show' : ''} login-dropdown`} data-testid="login-dropdown">
                     <form className="login-form " ref={formRef}> {/*gets reference to the login form*/}
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -89,13 +89,13 @@ const LoginDropdown = (props) => {
                             <input type="password" className="form-control" id="exampleInputPassword1" onChange={handlePassword} /> {/*trims password input*/}
                         </div>
                         <div className="mb-3">
-                            <small id="emailHelp" className="form-text text-muted" onClick={navigateChangePassword}>Forgotten Your Password?</small>
+                            <small id="account-help" className="form-text text-muted hover-underline" onClick={navigateChangePassword}>Forgotten Your Password?</small>
                         </div>
                         <div className="mb-3">
                             <button type="submit" className="btn btn-primary" data-testid="submit-form" disabled={validForm ? false : true} onClick={handleSubmit}>Submit</button>
                         </div>
                         <div className="mb-3">
-                            <small id="emailHelp" className="form-text text-muted" onClick={navigateRegister}>Don't have an account? register with us here</small>
+                            <small id="account-help" className="form-text text-muted hover-underline" onClick={navigateRegister}>Don't have an account? register with us here</small>
                         </div>
                     </form>
                 </ul>
