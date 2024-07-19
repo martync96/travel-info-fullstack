@@ -10,7 +10,7 @@ const NavBar = (props) => {
     const navigateHome = () => { navigate(`/`) }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light py-4">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-4">
             <div className="container-fluid">
                 <div className="col-3 d-flex">
                     <a className="navbar-brand" href="#"></a>

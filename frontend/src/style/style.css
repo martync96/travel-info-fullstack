@@ -1,7 +1,7 @@
 /* HomePage */
 .homeHeading {
     text-align: center;
-    padding-top: 250px;
+    padding-top: 200px;
 
 }
 
@@ -26,6 +26,7 @@
 
 .search-button {
     margin-top: 20px !important;
+    margin-bottom: 311px !important;
     width: 50%;
 }
 
@@ -55,6 +56,18 @@
     display: none;
 }
 
+.dropdown-menu{
+    margin-left: -50px !important;
+    width: auto !important;  
+    min-width: 300px !important;
+    text-align: center !important;
+}
+
+.dropdown-item{
+    width: 100%;
+    text-align: center;
+}
+
 /* Navbar Search Styling*/
 .searchbox-nav {
     display: flex;
@@ -70,7 +83,12 @@
 .navbar{
     padding-top: 200px;
     padding-bottom: 200px;
+    color: white;
 }
+
+.nav-link{
+    color: white !important;
+}   
 
 .footer {
     background-color: #282c34;
@@ -94,6 +112,7 @@
 .footer-nav a {
     color: white;
     text-decoration: none;
+    margin: 10px;
 }
 
 .footer-nav a:hover {
