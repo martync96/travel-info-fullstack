@@ -6,6 +6,7 @@ import NavBar from './components/NavBar.jsx';
 import RegisterUserPage from './pages/RegisterUserPage.jsx';
 import WeatherPage from './pages/WeatherPage.jsx';
 import FavouriteLocations from './pages/FavouriteLocations.jsx';
+import Footer from './components/Footer.jsx';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/weather/:location" element={<WeatherPage favouriteLocations={favouriteLocations} setFavouriteLocations={setFavouriteLocations}/>} />
         <Route path="/favourite-locations" element={<FavouriteLocations favouriteLocations={favouriteLocations} setFavouriteLocations={setFavouriteLocations} />} />
       </Routes>
+      <Footer />
     </div>
   )
 }

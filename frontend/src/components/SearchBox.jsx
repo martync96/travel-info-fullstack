@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const SearchBox = ({className}) => {
+const SearchBox = ({className, inputClass, buttonClass}) => {
 
     const [search, setSearch] = useState(''); //state for user input for search
     const [show, setShow] = useState(false); //state to show/hide modal
@@ -42,8 +42,8 @@ const SearchBox = ({className}) => {
         <>
             <form className={`${className} `}>
                 <div className="search-container">
-                    <input className="form-control mr-sm-2 mb-2 search-box" type="search" placeholder="Search" aria-label="Search" onChange={setSearchItem} data-testid="searchBox"/>
-                    <button className="btn btn-dark my-2 my-sm-0" type="submit" data-testid="searchButton" disabled={userInput ? false : true} onClick={searchForLocation}>Search</button>
+                    <input className={`form-control mr-sm-2 mb-2 search-box ${inputClass}`} type="search" placeholder="Search" aria-label="Search" onChange={setSearchItem} data-testid="searchBox"/>
+                    <button className={`${buttonClass}`} type="submit" data-testid="searchButton" disabled={userInput ? false : true} onClick={searchForLocation}>Search</button>
                 </div>
             </form>
             <NotificationModal show={show} handleClose={handleClose} error={error} />
